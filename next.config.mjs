@@ -2,6 +2,9 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  experimental: {
+    proxyTimeout: 60000,
+  },
   images: {
     remotePatterns: [
       {

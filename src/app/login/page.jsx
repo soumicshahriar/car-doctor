@@ -1,5 +1,8 @@
+"use client";
+export const dynamic = "force-dynamic"; // important for client hooks like useSearchParams
+
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import LoginForm from "./components/LoginForm";
 
 export default function LoginPage() {
@@ -12,7 +15,7 @@ export default function LoginPage() {
             src="/assets/images/login/login.svg"
             width={450}
             height={450}
-            alt="Register Illustration"
+            alt="Login Illustration"
             className="object-contain"
           />
         </div>
@@ -21,8 +24,11 @@ export default function LoginPage() {
         <div className="border rounded-xl p-10 shadow-sm w-full max-w-md mx-auto">
           <h2 className="text-2xl font-bold text-center mb-8">Login</h2>
 
-          {/* FORM */}
-          <LoginForm></LoginForm>
+          {/* LOGIN FORM */}
+          {/* FIX: Wrap with Suspense */}
+          <Suspense fallback={<p>Loading...</p>}>
+            <LoginForm />
+          </Suspense>
         </div>
       </div>
     </div>

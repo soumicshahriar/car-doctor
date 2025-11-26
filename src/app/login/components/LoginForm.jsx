@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,10 +10,8 @@ import SocialLogin from "./SocialLogin";
 
 export default function LoginForm() {
   const router = useRouter();
-
-  // for redirect to the visiting page
-  const searchparams = useSearchParams();
-  const callbackUrl = searchparams.get("callbackUrl") || "/";
+  const searchParams = useSearchParams(); // client-side only
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const {
     register,
@@ -21,25 +20,23 @@ export default function LoginForm() {
   } = useForm();
 
   const onSubmit = async ({ email, password }) => {
-    // submitting toast
-    toast("submitting");
+    toast.loading("Submitting...");
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: true,
+      redirect: false,
       callbackUrl,
     });
-    console.log("SIGNIN RESULT:", result);
 
     if (result?.error) {
-      toast.error("Login Failed Please provide correct email and password");
-      // console.log("Login failed:", result.error);
-      return; //prevent redirect
+      toast.dismiss();
+      toast.error("Login failed! Check your email and password.");
+      return;
     }
 
-    toast.success("Login Successful");
-    router.push("/");
-    router.refresh();
+    toast.dismiss();
+    toast.success("Login successful!");
+    router.push(callbackUrl);
   };
 
   return (
@@ -48,19 +45,26 @@ export default function LoginForm() {
       <div>
         <label>Email</label>
         <input
+          type="email"
           {...register("email", { required: "Email is required" })}
           className="border w-full px-4 py-2"
         />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+        )}
       </div>
 
       {/* Password */}
       <div>
         <label>Password</label>
         <input
-          {...register("password", { required: "Password is required" })}
           type="password"
+          {...register("password", { required: "Password is required" })}
           className="border w-full px-4 py-2"
         />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
       </div>
 
       {/* Submit */}
@@ -69,7 +73,7 @@ export default function LoginForm() {
       </button>
 
       {/* SOCIAL LOGIN */}
-      <SocialLogin></SocialLogin>
+      <SocialLogin />
 
       {/* Register Link */}
       <p className="text-center mt-4 text-sm">
@@ -78,8 +82,6 @@ export default function LoginForm() {
           Register
         </Link>
       </p>
-
-      {/*  */}
     </form>
   );
 }

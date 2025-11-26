@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import RegisterForm from "./components/RegisterForm";
 
 export default function RegisterPage() {
@@ -22,7 +22,9 @@ export default function RegisterPage() {
           <h2 className="text-2xl font-bold text-center mb-8">Sign Up</h2>
 
           {/* FORM */}
-          <RegisterForm></RegisterForm>
+          <Suspense>
+            <RegisterForm fallback={<p>Loading.....</p>}></RegisterForm>
+          </Suspense>
         </div>
       </div>
     </div>
