@@ -8,7 +8,9 @@ export default function MyBookingsPage() {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const res = await fetch("http://localhost:3000/checkout/api");
+      const res = await fetch(
+        "https://car-doctor-ashen.vercel.app/checkout/api"
+      );
       const result = await res.json();
       setBookingsData(result);
     };
@@ -21,9 +23,12 @@ export default function MyBookingsPage() {
     const toastId = toast.loading("Deleting...");
 
     try {
-      const res = await fetch(`http://localhost:3000/api/service/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://car-doctor-ashen.vercel.app/api/service/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await res.json();
 
