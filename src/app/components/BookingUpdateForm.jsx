@@ -40,7 +40,7 @@ export default function BookingUpdateForm({ service }) {
 
     try {
       const res = await fetch(
-        `https://car-doctor-ashen.vercel.app/api/my-booking/${service._id}`,
+        `https://car-doctor-opal.vercel.app/api/my-booking/${service._id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

@@ -9,7 +9,7 @@ export default function MyBookingsPage() {
   useEffect(() => {
     const fetchBookings = async () => {
       const res = await fetch(
-        "https://car-doctor-ashen.vercel.app/checkout/api"
+        "https://car-doctor-opal.vercel.app/checkout/api"
       );
       const result = await res.json();
       setBookingsData(result);
@@ -24,7 +24,7 @@ export default function MyBookingsPage() {
 
     try {
       const res = await fetch(
-        `https://car-doctor-ashen.vercel.app/api/service/${id}`,
+        `https://car-doctor-opal.vercel.app/api/service/${id}`,
         {
           method: "DELETE",
         }
