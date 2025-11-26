@@ -25,11 +25,11 @@ export default async function ServicesSection() {
             className="border rounded-xl shadow p-4 flex flex-col"
           >
             <Image
-              src={service.img}
-              alt={service.title}
+              src={service.img ?? "/assets/images/services/1.jpg"}
+              alt={service.title ?? "Service"}
               width={314}
               height={208}
-              className="rounded-xl  w-full h-64 object-cover"
+              className="rounded-xl w-full h-64 object-cover"
             />
 
             <h3 className="text-xl font-semibold mt-3">{service.title}</h3>
